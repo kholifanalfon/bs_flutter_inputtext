@@ -24,65 +24,68 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Input Text'),
         ),
-        body: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 20.0),
-              child: BsInput(
-                size: BsInputSize.sm,
-                hintText: 'Small input',
-                controller: TextEditingController(),
-                validators: [BsInputValidator.required],
+        body: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 20.0),
+                child: BsInput(
+                  size: BsInputSize.sm,
+                  hintText: 'Small input',
+                  controller: TextEditingController(),
+                  validators: [BsInputValidator.required],
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 20.0),
-              child: BsInput(
-                size: BsInputSize.md,
-                hintTextLabel: 'Medium input',
-                controller: TextEditingController(),
-                validators: [BsInputValidator.required],
+              Container(
+                margin: EdgeInsets.only(bottom: 20.0),
+                child: BsInput(
+                  size: BsInputSize.md,
+                  hintTextLabel: 'Medium input',
+                  controller: TextEditingController(),
+                  validators: [BsInputValidator.required],
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 20.0),
-              child: BsInput(
-                size: BsInputSize.lg,
-                obscureText: true,
-                hintTextLabel: 'Large input',
-                controller: TextEditingController(),
+              Container(
+                margin: EdgeInsets.only(bottom: 20.0),
+                child: BsInput(
+                  size: BsInputSize.lg,
+                  obscureText: true,
+                  hintTextLabel: 'Large input',
+                  controller: TextEditingController(),
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 20.0),
-              child: BsInput(
-                style: BsInputStyle.outlineBottom,
-                size: BsInputSize.outlineBottomSm,
-                hintTextLabel: 'Small input',
-                controller: TextEditingController(),
+              Container(
+                margin: EdgeInsets.only(bottom: 20.0),
+                child: BsInput(
+                  style: BsInputStyle.outlineBottom,
+                  size: BsInputSize.outlineBottomSm,
+                  hintTextLabel: 'Small input',
+                  controller: TextEditingController(),
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 20.0),
-              child: BsInput(
-                style: BsInputStyle.outlineBottom,
-                size: BsInputSize.outlineBottomMd,
-                hintTextLabel: 'Medium input',
-                controller: TextEditingController(),
+              Container(
+                margin: EdgeInsets.only(bottom: 20.0),
+                child: BsInput(
+                  style: BsInputStyle.outlineBottom,
+                  size: BsInputSize.outlineBottomMd,
+                  hintTextLabel: 'Medium input',
+                  controller: TextEditingController(),
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 20.0),
-              child: BsInput(
-                style: BsInputStyle.outlineBottom,
-                size: BsInputSize.outlineBottomLg,
-                hintTextLabel: 'Large input',
-                maxLines: 5,
-                controller: TextEditingController(),
-                validators: [BsInputValidator.required],
+              Container(
+                margin: EdgeInsets.only(bottom: 20.0),
+                child: BsInput(
+                  style: BsInputStyle.outlineBottom,
+                  size: BsInputSize.outlineBottomLg,
+                  hintTextLabel: 'Large input',
+                  maxLines: 5,
+                  controller: TextEditingController(),
+                  validators: [BsInputValidator.required],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
