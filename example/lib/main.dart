@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
               Container(
                 margin: EdgeInsets.only(bottom: 20.0),
                 child: BsInput(
+                  disabled: true,
                   size: BsInputSize.sm,
                   hintText: 'Small input',
                   controller: TextEditingController(),
@@ -58,6 +59,7 @@ class _MyAppState extends State<MyApp> {
               Container(
                 margin: EdgeInsets.only(bottom: 20.0),
                 child: BsInput(
+                  disabled: true,
                   style: BsInputStyle.outlineBottom,
                   size: BsInputSize.outlineBottomSm,
                   hintTextLabel: 'Small input',
