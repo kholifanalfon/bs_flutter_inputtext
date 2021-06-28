@@ -7,6 +7,7 @@ class BsInputStyle {
   const BsInputStyle({
     this.color = BsColor.primary,
     this.backgroundColor = Colors.transparent,
+    this.disabledColor = const Color(0xffe7e7e7),
     this.border,
     this.borderRadius,
     this.boxShadowFocused = const [],
@@ -17,6 +18,9 @@ class BsInputStyle {
 
   /// define color of backgroundColor [BsInputText]
   final Color? backgroundColor;
+
+  /// define disabledColor of backgroundColor [BsInputText]
+  final Color? disabledColor;
 
   /// define border of [BsInputText]
   final BoxBorder? border;
