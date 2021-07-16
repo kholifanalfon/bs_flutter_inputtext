@@ -233,7 +233,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
         Column(
           children: [
             FormField(
-              autovalidateMode: AutovalidateMode.disabled,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               initialValue: controller.text == '' ? null : controller.text,
               validator: (value) {
                 _errorText = null;
@@ -293,7 +293,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                                 fontSize: widget.size.fontSize,
                               )
                             ),
-                            autovalidateMode: AutovalidateMode.disabled,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             focusNode: focusNode,
                             enabled: !widget.disabled,
                             readOnly: widget.readOnly,
@@ -355,9 +355,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                     )
                   ],
                 );
-              },
-              onSaved: (newValue) {
-                print(newValue);
               },
             ),
           ],
