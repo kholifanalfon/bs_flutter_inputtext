@@ -156,7 +156,6 @@ class BsInput extends StatefulWidget {
   /// define validators [BsInput]
   final List<BsInputValidator> validators;
 
-
   final ToolbarOptions? toolbarOptions;
 }
 
@@ -175,7 +174,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
 
   bool get valid =>
       (formFieldState != null && formFieldState!.validate()) ||
-          (_errorText == null);
+      (_errorText == null);
 
   String? _errorText;
   TextEditingController get controller => widget.controller;
@@ -191,7 +190,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
   }
 
   void updateState(Function function) {
-    if(mounted)
+    if (mounted)
       setState(() {
         function();
       });
@@ -274,100 +273,105 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                 return Column(
                   children: [
                     Container(
-                      decoration: BoxDecoration(
-                        color: widget.disabled ? widget.style.disabledColor : widget.style.backgroundColor,
-                        border: border,
-                        borderRadius: widget.style.borderRadius,
-                        boxShadow: boxShadow
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextFormField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: hintText,
-                              contentPadding: widget.size.padding,
-                              isDense: true,
-                              hintStyle: TextStyle(
-                                fontSize: widget.size.fontSize,
-                              )
+                        decoration: BoxDecoration(
+                            color: widget.disabled
+                                ? widget.style.disabledColor
+                                : widget.style.backgroundColor,
+                            border: border,
+                            borderRadius: widget.style.borderRadius,
+                            boxShadow: boxShadow),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextFormField(
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: hintText,
+                                  contentPadding: widget.size.padding,
+                                  isDense: true,
+                                  hintStyle: TextStyle(
+                                    fontSize: widget.size.fontSize,
+                                  )),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              focusNode: focusNode,
+                              enabled: !widget.disabled,
+                              readOnly: widget.readOnly,
+                              autofocus: widget.autofocus,
+                              autocorrect: widget.autocorrect,
+                              maxLines: widget.maxLines,
+                              minLines: widget.minLines,
+                              controller: controller,
+                              obscureText: widget.obscureText,
+                              keyboardType: widget.keyboardType,
+                              inputFormatters: widget.inputFormatters,
+                              textAlign: widget.textAlign,
+                              textAlignVertical: widget.textAlignVertical,
+                              textCapitalization: widget.textCapitalization,
+                              textDirection: widget.textDirection,
+                              textInputAction: widget.textInputAction,
+                              onTap: widget.onTap,
+                              onEditingComplete: widget.onEditingComplete,
+                              onChanged: (value) {
+                                field.didChange(value);
+                                if (widget.onChange != null)
+                                  widget.onChange!(value);
+
+                                field.setState(() {});
+                              },
+                              onFieldSubmitted: (value) {
+                                field.didChange(value);
+                                if (widget.onFieldSubmitted != null)
+                                  widget.onFieldSubmitted!(value);
+
+                                field.setState(() {});
+                              },
+                              onSaved: (value) {
+                                field.didChange(value);
+                                if (widget.onSaved != null)
+                                  widget.onSaved!(value);
+
+                                field.setState(() {});
+                              },
+                              toolbarOptions: widget.toolbarOptions,
+                              showCursor: widget.showCursor,
+                              cursorColor: widget.cursorColor,
+                              cursorHeight: widget.cursorHeight,
+                              cursorRadius: widget.cursorRadius,
+                              cursorWidth: widget.cursorWidth,
+                              scrollPadding: widget.scrollPadding,
+                              scrollController: widget.scrollController,
+                              scrollPhysics: widget.scrollPhysics,
                             ),
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            focusNode: focusNode,
-                            enabled: !widget.disabled,
-                            readOnly: widget.readOnly,
-                            autofocus: widget.autofocus,
-                            autocorrect: widget.autocorrect,
-                            maxLines: widget.maxLines,
-                            minLines: widget.minLines,
-                            controller: controller,
-                            obscureText: widget.obscureText,
-                            keyboardType: widget.keyboardType,
-                            inputFormatters: widget.inputFormatters,
-                            textAlign: widget.textAlign,
-                            textAlignVertical: widget.textAlignVertical,
-                            textCapitalization: widget.textCapitalization,
-                            textDirection: widget.textDirection,
-                            textInputAction: widget.textInputAction,
-                            onTap: widget.onTap,
-                            onEditingComplete: widget.onEditingComplete,
-                            onChanged: (value) {
-                              field.didChange(value);
-                              if (widget.onChange != null)
-                                widget.onChange!(value);
-
-                              field.setState(() {});
-                            },
-                            onFieldSubmitted: (value) {
-                              field.didChange(value);
-                              if (widget.onFieldSubmitted != null)
-                                widget.onFieldSubmitted!(value);
-
-                              field.setState(() {});
-                            },
-                            onSaved: (value) {
-                              field.didChange(value);
-                              if (widget.onSaved != null) widget.onSaved!(value);
-
-                              field.setState(() {});
-                            },
-                            toolbarOptions: widget.toolbarOptions,
-                            showCursor: widget.showCursor,
-                            cursorColor: widget.cursorColor,
-                            cursorHeight: widget.cursorHeight,
-                            cursorRadius: widget.cursorRadius,
-                            cursorWidth: widget.cursorWidth,
-                            scrollPadding: widget.scrollPadding,
-                            scrollController: widget.scrollController,
-                            scrollPhysics: widget.scrollPhysics,
-                          ),
-                        ],
-                      )
-                    ),
-                    !field.hasError ? Container() : Container(
-                      margin: EdgeInsets.only(top: 5.0, left: 2.0),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        field.errorText!,
-                        style:
-                        TextStyle(fontSize: 12.0, color: BsColor.textError),
-                      ),
-                    )
+                          ],
+                        )),
+                    !field.hasError
+                        ? Container()
+                        : Container(
+                            margin: EdgeInsets.only(top: 5.0, left: 2.0),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              field.errorText!,
+                              style: TextStyle(
+                                  fontSize: 12.0, color: BsColor.textError),
+                            ),
+                          )
                   ],
                 );
               },
             ),
           ],
         ),
-        widget.hintTextLabel == null ? Container(width: 0) : GestureDetector(
-          onTap: () => focusNode!.requestFocus(),
-          child: widget.hintTextLabel != null
-              ? renderHintTextLabel(
-              valid ? widget.style.color! : BsColor.textError,
-              Colors.grey)
-              : Text(''),
-        ),
+        widget.hintTextLabel == null
+            ? Container(width: 0)
+            : GestureDetector(
+                onTap: () => focusNode!.requestFocus(),
+                child: widget.hintTextLabel != null
+                    ? renderHintTextLabel(
+                        valid ? widget.style.color! : BsColor.textError,
+                        Colors.grey)
+                    : Text(''),
+              ),
       ],
     );
   }
@@ -377,15 +381,18 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
       animation: animated!,
       builder: (context, _) {
         double top = isEmpty
-            ? (widget.size.marginTop! + widget.size.transitionMarginTop!) * animated!.value
+            ? (widget.size.marginTop! + widget.size.transitionMarginTop!) *
+                animated!.value
             : widget.size.transitionMarginTop!;
 
         double left = isEmpty
-            ? (widget.size.marginLeft! + widget.size.transitionMarginLeft!) * animated!.value
+            ? (widget.size.marginLeft! + widget.size.transitionMarginLeft!) *
+                animated!.value
             : widget.size.transitionMarginLeft!;
 
         double fontSize = isEmpty
-            ? widget.size.fontSize! - (widget.size.transisionFontSize! * animated!.value).toDouble()
+            ? widget.size.fontSize! -
+                (widget.size.transisionFontSize! * animated!.value).toDouble()
             : widget.size.fontSize! - widget.size.transisionFontSize!;
 
         Color textColor = color;
@@ -398,17 +405,15 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
           child: Container(
             padding: EdgeInsets.only(left: 2.0, right: 2.0),
             margin: EdgeInsets.only(
-              left: isEmpty ? widget.size.marginLeft! : 0,
-              top: isEmpty ? widget.size.marginTop! : 0
-            ),
+                left: isEmpty ? widget.size.marginLeft! : 0,
+                top: isEmpty ? widget.size.marginTop! : 0),
             color: widget.style.backgroundColor,
             child: Text(widget.hintTextLabel!,
-              style: TextStyle(
-                fontSize: fontSize,
-                color: textColor,
-              ),
-              overflow: TextOverflow.ellipsis
-            ),
+                style: TextStyle(
+                  fontSize: fontSize,
+                  color: textColor,
+                ),
+                overflow: TextOverflow.ellipsis),
           ),
         );
       },
