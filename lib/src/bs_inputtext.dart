@@ -315,8 +315,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                               field.didChange(value);
                               if (widget.onFieldSubmitted != null)
                                 widget.onFieldSubmitted!(value);
-
-                              field.setState(() {});
                             },
                             onSaved: (value) {
                               field.didChange(value);
@@ -338,7 +336,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                       margin: EdgeInsets.only(top: 5.0, left: 2.0),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        _errorText.toString(),
+                        field.errorText!,
                         style:
                         TextStyle(fontSize: 12.0, color: BsColor.textError),
                       ),
