@@ -292,6 +292,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                                 fontSize: widget.size.fontSize,
                               )
                             ),
+                            autovalidateMode: AutovalidateMode.disabled,
                             focusNode: focusNode,
                             enabled: !widget.disabled,
                             readOnly: widget.readOnly,
