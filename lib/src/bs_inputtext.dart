@@ -271,11 +271,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                     )
                   ];
 
-                Future.delayed(Duration(milliseconds: 100), () {
-                  if(field.mounted)
-                    field.didChange(controller.text);
-                });
-
                 return Column(
                   children: [
                     Container(
