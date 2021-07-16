@@ -232,6 +232,11 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
             FormField(
               initialValue: initialValue,
               validator: (value) {
+                _errorText = null;
+                widget.validators.map((validator) {
+                  if (_errorText == null)
+                    _errorText = validator.validator(controller.text);
+                }).toList();
                 return _errorText;
               },
               builder: (field) {

@@ -15,7 +15,7 @@ class BsInputValidator {
   static BsInputValidator get required => BsInputValidator(
     validator: (value) {
       String valueValidate = value.toString().trim();
-      if (valueValidate.isEmpty) return "Field tidak boleh kosong";
+      if (valueValidate.isEmpty) return "Field is required";
 
       return null;
     },
@@ -25,7 +25,7 @@ class BsInputValidator {
   static BsInputValidator maxLength(int length) {
     return BsInputValidator(validator: (value) {
       if (value.toString().length > length)
-        return "Value tidak boleh lebih dari $length";
+        return "Value cannot be more than $length";
       return null;
     });
   }
@@ -34,7 +34,7 @@ class BsInputValidator {
   static BsInputValidator minLength(int length) {
     return BsInputValidator(validator: (value) {
       if (value.toString().length < length)
-        return "Value harus boleh lebih dari $length";
+        return "Value cannot be less than $length";
       return null;
     });
   }
