@@ -308,15 +308,21 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                             field.didChange(value);
                             if (widget.onChange != null)
                               widget.onChange!(value);
+
+                            updateState(() {});
                           },
                           onFieldSubmitted: (value) {
                             field.didChange(value);
                             if (widget.onFieldSubmitted != null)
                               widget.onFieldSubmitted!(value);
+
+                            updateState(() {});
                           },
                           onSaved: (value) {
                             field.didChange(value);
                             if (widget.onSaved != null) widget.onSaved!(value);
+
+                            updateState(() {});
                           },
                           showCursor: widget.showCursor,
                           cursorColor: widget.cursorColor,
