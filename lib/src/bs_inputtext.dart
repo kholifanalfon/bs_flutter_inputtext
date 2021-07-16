@@ -8,7 +8,6 @@ class BsInput extends StatefulWidget {
   /// Construct BsInput
   const BsInput({
     Key? key,
-    this.initialValue,
     this.style = BsInputStyle.outline,
     this.size = BsInputSize.md,
     this.hintText,
@@ -44,6 +43,7 @@ class BsInput extends StatefulWidget {
     this.scrollController,
     this.scrollPhysics,
     this.validators = const [],
+    this.toolbarOptions,
   }) : super(key: key);
 
   @override
@@ -156,7 +156,8 @@ class BsInput extends StatefulWidget {
   /// define validators [BsInput]
   final List<BsInputValidator> validators;
 
-  final String? initialValue;
+
+  final ToolbarOptions? toolbarOptions;
 }
 
 class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
@@ -178,7 +179,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
 
   String? _errorText;
   TextEditingController get controller => widget.controller;
-  String get initialValue => widget.initialValue != null ? widget.initialValue! : controller.text;
   bool get isEmpty => controller.text == '';
 
   @override
@@ -332,6 +332,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
 
                               field.setState(() {});
                             },
+                            toolbarOptions: widget.toolbarOptions,
                             showCursor: widget.showCursor,
                             cursorColor: widget.cursorColor,
                             cursorHeight: widget.cursorHeight,
