@@ -227,7 +227,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
         Column(
           children: [
             FormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+              autovalidateMode: AutovalidateMode.disabled,
               initialValue: widget.initialValue,
               validator: (value) {
                 _errorText = null;
