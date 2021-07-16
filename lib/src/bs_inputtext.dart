@@ -178,6 +178,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
 
   String? _errorText;
   TextEditingController get controller => widget.controller;
+  String get initialValue => widget.initialValue != null ? widget.initialValue! : controller.text;
   bool get isEmpty => controller.text == '';
 
   @override
@@ -213,6 +214,11 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
   void onFocusNode() {
     updateState(() {
       if (!focusNode!.hasFocus) {
+        _errorText = null;
+        widget.validators.map((validator) {
+          if (_errorText == null)
+            _errorText = validator.validator(controller.text);
+        }).toList();
         animated!.reverse();
       } else {
         animated!.forward();
@@ -228,12 +234,12 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
           children: [
             FormField(
               autovalidateMode: AutovalidateMode.disabled,
-              initialValue: widget.initialValue,
+              initialValue: initialValue,
               validator: (value) {
                 _errorText = null;
                 widget.validators.map((validator) {
                   if (_errorText == null)
-                    _errorText = validator.validator(controller.text);
+                    _errorText = validator.validator(value.toString());
                 }).toList();
                 return _errorText;
               },
@@ -264,11 +270,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                       spreadRadius: 2.5,
                     )
                   ];
-
-                Future.delayed(Duration(milliseconds: 100), () {
-                  if(field.mounted)
-                    field.didChange(controller.text);
-                });
 
                 return Column(
                   children: [
@@ -315,15 +316,21 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                               field.didChange(value);
                               if (widget.onChange != null)
                                 widget.onChange!(value);
+
+                              field.setState(() {});
                             },
                             onFieldSubmitted: (value) {
                               field.didChange(value);
                               if (widget.onFieldSubmitted != null)
                                 widget.onFieldSubmitted!(value);
+
+                              field.setState(() {});
                             },
                             onSaved: (value) {
                               field.didChange(value);
                               if (widget.onSaved != null) widget.onSaved!(value);
+
+                              field.setState(() {});
                             },
                             showCursor: widget.showCursor,
                             cursorColor: widget.cursorColor,
