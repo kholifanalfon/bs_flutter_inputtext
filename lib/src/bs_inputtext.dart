@@ -230,6 +230,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
         Column(
           children: [
             FormField(
+              autovalidateMode: AutovalidateMode.always,
               initialValue: initialValue,
               validator: (value) {
                 _errorText = null;
