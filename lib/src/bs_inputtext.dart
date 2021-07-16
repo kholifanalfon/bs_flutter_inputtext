@@ -230,6 +230,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
         Column(
           children: [
             FormField(
+              autovalidateMode: AutovalidateMode.disabled,
               initialValue: initialValue,
               validator: (value) {
                 _errorText = null;
@@ -311,20 +312,20 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                               if (widget.onChange != null)
                                 widget.onChange!(value);
 
-                              updateState(() {});
+                              field.setState(() {});
                             },
                             onFieldSubmitted: (value) {
                               field.didChange(value);
                               if (widget.onFieldSubmitted != null)
                                 widget.onFieldSubmitted!(value);
 
-                              updateState(() {});
+                              field.setState(() {});
                             },
                             onSaved: (value) {
                               field.didChange(value);
                               if (widget.onSaved != null) widget.onSaved!(value);
 
-                              updateState(() {});
+                              field.setState(() {});
                             },
                             showCursor: widget.showCursor,
                             cursorColor: widget.cursorColor,
