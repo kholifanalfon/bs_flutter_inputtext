@@ -310,8 +310,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                               field.didChange(value);
                               if (widget.onChange != null)
                                 widget.onChange!(value);
-
-                              field.setState(() {});
                             },
                             onFieldSubmitted: (value) {
                               field.didChange(value);
@@ -323,8 +321,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                             onSaved: (value) {
                               field.didChange(value);
                               if (widget.onSaved != null) widget.onSaved!(value);
-
-                              field.setState(() {});
                             },
                             showCursor: widget.showCursor,
                             cursorColor: widget.cursorColor,
