@@ -8,6 +8,7 @@ class BsInput extends StatefulWidget {
   /// Construct BsInput
   const BsInput({
     Key? key,
+    this.initialValue = '',
     this.style = BsInputStyle.outline,
     this.size = BsInputSize.md,
     this.hintText,
@@ -154,6 +155,8 @@ class BsInput extends StatefulWidget {
 
   /// define validators [BsInput]
   final List<BsInputValidator> validators;
+
+  final String initialValue;
 }
 
 class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
@@ -175,7 +178,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
 
   String? _errorText;
   TextEditingController get controller => widget.controller;
-  String get initialValue => controller.text;
   bool get isEmpty => controller.text == '';
 
   @override
@@ -230,8 +232,8 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
         Column(
           children: [
             FormField(
-              autovalidateMode: AutovalidateMode.disabled,
-              initialValue: initialValue,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              initialValue: widget.initialValue,
               validator: (value) {
                 _errorText = null;
                 widget.validators.map((validator) {
@@ -275,7 +277,8 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                         color: widget.disabled ? widget.style.disabledColor : widget.style.backgroundColor,
                         border: border,
                         borderRadius: widget.style.borderRadius,
-                        boxShadow: boxShadow),
+                        boxShadow: boxShadow
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
