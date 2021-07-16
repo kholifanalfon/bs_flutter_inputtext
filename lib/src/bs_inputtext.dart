@@ -8,7 +8,7 @@ class BsInput extends StatefulWidget {
   /// Construct BsInput
   const BsInput({
     Key? key,
-    this.initialValue = '',
+    this.initialValue,
     this.style = BsInputStyle.outline,
     this.size = BsInputSize.md,
     this.hintText,
@@ -156,7 +156,7 @@ class BsInput extends StatefulWidget {
   /// define validators [BsInput]
   final List<BsInputValidator> validators;
 
-  final String initialValue;
+  final String? initialValue;
 }
 
 class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
