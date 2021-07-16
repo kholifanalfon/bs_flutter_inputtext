@@ -230,7 +230,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
         Column(
           children: [
             FormField(
-              autovalidateMode: AutovalidateMode.always,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               initialValue: initialValue,
               validator: (value) {
                 _errorText = null;
@@ -268,84 +268,90 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                     )
                   ];
 
-                return Container(
-                    decoration: BoxDecoration(
+                return Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
                         color: widget.disabled ? widget.style.disabledColor : widget.style.backgroundColor,
                         border: border,
                         borderRadius: widget.style.borderRadius,
                         boxShadow: boxShadow),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextFormField(
-                          decoration: InputDecoration(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: hintText,
                               contentPadding: widget.size.padding,
                               isDense: true,
                               hintStyle: TextStyle(
                                 fontSize: widget.size.fontSize,
-                              )),
-                          focusNode: focusNode,
-                          enabled: !widget.disabled,
-                          readOnly: widget.readOnly,
-                          autofocus: widget.autofocus,
-                          autocorrect: widget.autocorrect,
-                          maxLines: widget.maxLines,
-                          minLines: widget.minLines,
-                          controller: controller,
-                          obscureText: widget.obscureText,
-                          keyboardType: widget.keyboardType,
-                          inputFormatters: widget.inputFormatters,
-                          textAlign: widget.textAlign,
-                          textAlignVertical: widget.textAlignVertical,
-                          textCapitalization: widget.textCapitalization,
-                          textDirection: widget.textDirection,
-                          textInputAction: widget.textInputAction,
-                          onTap: widget.onTap,
-                          onEditingComplete: widget.onEditingComplete,
-                          onChanged: (value) {
-                            field.didChange(value);
-                            if (widget.onChange != null)
-                              widget.onChange!(value);
+                              )
+                            ),
+                            focusNode: focusNode,
+                            enabled: !widget.disabled,
+                            readOnly: widget.readOnly,
+                            autofocus: widget.autofocus,
+                            autocorrect: widget.autocorrect,
+                            maxLines: widget.maxLines,
+                            minLines: widget.minLines,
+                            controller: controller,
+                            obscureText: widget.obscureText,
+                            keyboardType: widget.keyboardType,
+                            inputFormatters: widget.inputFormatters,
+                            textAlign: widget.textAlign,
+                            textAlignVertical: widget.textAlignVertical,
+                            textCapitalization: widget.textCapitalization,
+                            textDirection: widget.textDirection,
+                            textInputAction: widget.textInputAction,
+                            onTap: widget.onTap,
+                            onEditingComplete: widget.onEditingComplete,
+                            onChanged: (value) {
+                              field.didChange(value);
+                              if (widget.onChange != null)
+                                widget.onChange!(value);
 
-                            updateState(() {});
-                          },
-                          onFieldSubmitted: (value) {
-                            field.didChange(value);
-                            if (widget.onFieldSubmitted != null)
-                              widget.onFieldSubmitted!(value);
+                              updateState(() {});
+                            },
+                            onFieldSubmitted: (value) {
+                              field.didChange(value);
+                              if (widget.onFieldSubmitted != null)
+                                widget.onFieldSubmitted!(value);
 
-                            updateState(() {});
-                          },
-                          onSaved: (value) {
-                            field.didChange(value);
-                            if (widget.onSaved != null) widget.onSaved!(value);
+                              updateState(() {});
+                            },
+                            onSaved: (value) {
+                              field.didChange(value);
+                              if (widget.onSaved != null) widget.onSaved!(value);
 
-                            updateState(() {});
-                          },
-                          showCursor: widget.showCursor,
-                          cursorColor: widget.cursorColor,
-                          cursorHeight: widget.cursorHeight,
-                          cursorRadius: widget.cursorRadius,
-                          cursorWidth: widget.cursorWidth,
-                          scrollPadding: widget.scrollPadding,
-                          scrollController: widget.scrollController,
-                          scrollPhysics: widget.scrollPhysics,
-                        ),
-                      ],
-                    ));
+                              updateState(() {});
+                            },
+                            showCursor: widget.showCursor,
+                            cursorColor: widget.cursorColor,
+                            cursorHeight: widget.cursorHeight,
+                            cursorRadius: widget.cursorRadius,
+                            cursorWidth: widget.cursorWidth,
+                            scrollPadding: widget.scrollPadding,
+                            scrollController: widget.scrollController,
+                            scrollPhysics: widget.scrollPhysics,
+                          ),
+                        ],
+                      )
+                    ),
+                    !field.hasError ? Container() : Container(
+                      margin: EdgeInsets.only(top: 5.0, left: 2.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        _errorText.toString(),
+                        style:
+                        TextStyle(fontSize: 12.0, color: BsColor.textError),
+                      ),
+                    )
+                  ],
+                );
               },
             ),
-            valid ? Container() : Container(
-              margin: EdgeInsets.only(top: 5.0, left: 2.0),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                _errorText.toString(),
-                style:
-                TextStyle(fontSize: 12.0, color: BsColor.textError),
-              ),
-            )
           ],
         ),
         widget.hintTextLabel == null ? Container(width: 0) : GestureDetector(
