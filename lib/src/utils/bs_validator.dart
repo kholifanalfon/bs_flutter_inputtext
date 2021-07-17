@@ -1,5 +1,5 @@
 /// Type definition for custom bs form validator
-typedef BsInputValidatorValue<String> = String? Function(String value);
+typedef BsInputValidatorValue<T> = String? Function(T value);
 
 /// Class custom validator
 class BsInputValidator {
@@ -9,13 +9,15 @@ class BsInputValidator {
   });
 
   /// validator function to check value is valid or not
-  final BsInputValidatorValue<String> validator;
+  final BsInputValidatorValue validator;
+}
 
+class BsInputValidators {
   /// define required validation
   static BsInputValidator get required => BsInputValidator(
     validator: (value) {
       String valueValidate = value.toString().trim();
-      if (valueValidate.isEmpty) return "Field is required";
+      if (valueValidate.isEmpty || value == null) return "Field is required";
 
       return null;
     },
