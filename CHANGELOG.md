@@ -1,4 +1,4 @@
-## 1.0.7
+## 1.0.8
 
 * Disabled change background color
 * Bug minor fixed
