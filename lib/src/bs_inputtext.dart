@@ -224,25 +224,23 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
       validator: (value) {
         _errorText = null;
 
-        if(!widget.disabled)
+        if (!widget.disabled)
           widget.validators.map((validator) {
-            if (_errorText == null)
-              _errorText = validator.validator(value);
+            if (_errorText == null) _errorText = validator.validator(value);
           }).toList();
 
         return _errorText;
       },
       builder: (field) {
         Future.delayed(Duration(milliseconds: 100), () {
-          if(field.mounted && controller.text != '')
+          if (field.mounted && controller.text != '')
             field.didChange(controller.text);
         });
 
         if (formFieldState == null) formFieldState = field;
 
         BoxBorder? border = widget.style.border;
-        if (focusNode!
-            .hasFocus) if (widget.style.boxShadowFocused.length == 0)
+        if (focusNode!.hasFocus) if (widget.style.boxShadowFocused.length == 0)
           border = Border(bottom: BorderSide(color: BsColor.primary));
         else
           border = Border.all(color: BsColor.primary);
@@ -253,8 +251,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
           border = Border.all(color: BsColor.danger);
 
         List<BoxShadow> boxShadow = [];
-        if (focusNode!.hasFocus)
-          boxShadow = widget.style.boxShadowFocused;
+        if (focusNode!.hasFocus) boxShadow = widget.style.boxShadowFocused;
 
         if (field.hasError && widget.style.boxShadowFocused.length != 0)
           boxShadow = [
@@ -271,11 +268,12 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
               children: [
                 Container(
                     decoration: BoxDecoration(
-                        color: widget.disabled ? widget.style.disabledColor : widget.style.backgroundColor,
+                        color: widget.disabled
+                            ? widget.style.disabledColor
+                            : widget.style.backgroundColor,
                         border: border,
                         borderRadius: widget.style.borderRadius,
-                        boxShadow: boxShadow
-                    ),
+                        boxShadow: boxShadow),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -288,8 +286,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                               hintStyle: TextStyle(
                                 fontSize: widget.size.fontSize,
                                 color: field.hasError ? Colors.red : null,
-                              )
-                          ),
+                              )),
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           focusNode: focusNode,
                           enabled: !widget.disabled,
@@ -325,8 +322,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                           },
                           onSaved: (value) {
                             field.didChange(value);
-                            if (widget.onSaved != null)
-                              widget.onSaved!(value);
+                            if (widget.onSaved != null) widget.onSaved!(value);
 
                             field.setState(() {});
                           },
@@ -341,26 +337,33 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                           scrollPhysics: widget.scrollPhysics,
                         ),
                       ],
-                    )
-                ),
-                !field.hasError ? Container() : Container(
-                  margin: EdgeInsets.only(top: 5.0, left: 2.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    field.errorText!,
-                    style: TextStyle(
-                        fontSize: 12.0, color: BsColor.textError
-                    ),
-                  ),
-                )
+                    )),
+                !field.hasError
+                    ? Container()
+                    : Container(
+                        margin: EdgeInsets.only(top: 5.0, left: 2.0),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          field.errorText!,
+                          style: TextStyle(
+                              fontSize: 12.0, color: BsColor.textError),
+                        ),
+                      )
               ],
             ),
-            widget.hintTextLabel == null ? Container(width: 0) : GestureDetector(
-              onTap: () => focusNode!.requestFocus(),
-              child: widget.hintTextLabel != null
-                  ? renderHintTextLabel(!field.hasError ? widget.style.color! : BsColor.textError, Colors.grey, !field.hasError)
-                  : Text(''),
-            ),
+            widget.hintTextLabel == null
+                ? Container(width: 0)
+                : GestureDetector(
+                    onTap: () => focusNode!.requestFocus(),
+                    child: widget.hintTextLabel != null
+                        ? renderHintTextLabel(
+                            !field.hasError
+                                ? widget.style.color!
+                                : BsColor.textError,
+                            Colors.grey,
+                            !field.hasError)
+                        : Text(''),
+                  ),
           ],
         );
       },
