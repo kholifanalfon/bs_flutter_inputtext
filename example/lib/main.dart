@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
                   child: BsInput(
                     size: BsInputSize.md,
                     hintTextLabel: 'Medium input',
-                    controller: TextEditingController(),
+                    controller: TextEditingController(text: 'Testing'),
                     validators: [BsInputValidators.required],
                   ),
                 ),

@@ -209,11 +209,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
   void onFocusNode() {
     updateState(() {
       if (!focusNode!.hasFocus) {
-        _errorText = null;
-        widget.validators.map((validator) {
-          if (_errorText == null)
-            _errorText = validator.validator(controller.text);
-        }).toList();
         animated!.reverse();
       } else {
         animated!.forward();
@@ -228,10 +223,13 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
       initialValue: controller.text == '' ? null : controller.text,
       validator: (value) {
         _errorText = null;
-        widget.validators.map((validator) {
-          if (_errorText == null)
-            _errorText = validator.validator(value);
-        }).toList();
+
+        if(!widget.disabled)
+          widget.validators.map((validator) {
+            if (_errorText == null)
+              _errorText = validator.validator(value);
+          }).toList();
+
         return _errorText;
       },
       builder: (field) {
