@@ -233,6 +233,10 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
         return _errorText;
       },
       builder: (field) {
+        Future.delayed(Duration(milliseconds: 100), () {
+          if(field.mounted)
+            field.didChange(controller.text);
+        });
 
         if (formFieldState == null) formFieldState = field;
 
