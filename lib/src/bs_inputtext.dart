@@ -160,11 +160,13 @@ class BsInput extends StatefulWidget {
 }
 
 class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
+  GlobalKey<State> _errorKey = GlobalKey<State>();
+
   FocusNode? focusNode;
   FormFieldState? formFieldState;
 
   Duration duration = Duration(milliseconds: 100);
-  AnimationController? animated;
+  late AnimationController animated;
 
   String? get hintText {
     if (widget.hintText == null) return '';
@@ -194,14 +196,14 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
 
   @override
   void didUpdateWidget(covariant BsInput oldWidget) {
-    animated!.duration = duration;
+    animated.duration = duration;
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void dispose() {
     focusNode!.dispose();
-    animated!.dispose();
+    animated.dispose();
 
     super.dispose();
   }
@@ -209,9 +211,9 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
   void onFocusNode() {
     updateState(() {
       if (!focusNode!.hasFocus) {
-        animated!.reverse();
+        animated.reverse();
       } else {
-        animated!.forward();
+        animated.forward();
       }
     });
   }
@@ -263,107 +265,100 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
           ];
 
         return Stack(
+          clipBehavior: Clip.none,
           children: [
             Column(
               children: [
                 Container(
-                    decoration: BoxDecoration(
-                        color: widget.disabled
-                            ? widget.style.disabledColor
-                            : widget.style.backgroundColor,
-                        border: border,
-                        borderRadius: widget.style.borderRadius,
-                        boxShadow: boxShadow),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: hintText,
-                              contentPadding: widget.size.padding,
-                              isDense: true,
-                              hintStyle: TextStyle(
-                                fontSize: widget.size.fontSize,
-                                color: field.hasError ? Colors.red : null,
-                              )),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          focusNode: focusNode,
-                          enabled: !widget.disabled,
-                          readOnly: widget.readOnly,
-                          autofocus: widget.autofocus,
-                          autocorrect: widget.autocorrect,
-                          maxLines: widget.maxLines,
-                          minLines: widget.minLines,
-                          controller: controller,
-                          obscureText: widget.obscureText,
-                          keyboardType: widget.keyboardType,
-                          inputFormatters: widget.inputFormatters,
-                          textAlign: widget.textAlign,
-                          textAlignVertical: widget.textAlignVertical,
-                          textCapitalization: widget.textCapitalization,
-                          textDirection: widget.textDirection,
-                          textInputAction: widget.textInputAction,
-                          onTap: widget.onTap,
-                          onEditingComplete: widget.onEditingComplete,
-                          onChanged: (value) {
-                            field.didChange(value);
-                            if (widget.onChange != null)
-                              widget.onChange!(value);
-
-                            field.setState(() {});
-                          },
-                          onFieldSubmitted: (value) {
-                            field.didChange(value);
-                            if (widget.onFieldSubmitted != null)
-                              widget.onFieldSubmitted!(value);
-
-                            field.setState(() {});
-                          },
-                          onSaved: (value) {
-                            field.didChange(value);
-                            if (widget.onSaved != null) widget.onSaved!(value);
-
-                            field.setState(() {});
-                          },
-                          toolbarOptions: widget.toolbarOptions,
-                          showCursor: widget.showCursor,
-                          cursorColor: widget.cursorColor,
-                          cursorHeight: widget.cursorHeight,
-                          cursorRadius: widget.cursorRadius,
-                          cursorWidth: widget.cursorWidth,
-                          scrollPadding: widget.scrollPadding,
-                          scrollController: widget.scrollController,
-                          scrollPhysics: widget.scrollPhysics,
+                  decoration: BoxDecoration(
+                    color: widget.disabled ? widget.style.disabledColor : widget.style.backgroundColor,
+                    border: border,
+                    borderRadius: widget.style.borderRadius,
+                    boxShadow: boxShadow
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: hintText,
+                          contentPadding: widget.size.padding,
+                          isDense: true,
+                          hintStyle: TextStyle(
+                            fontSize: widget.size.fontSize,
+                            color: field.hasError ? Colors.red : null,
+                          )
                         ),
-                      ],
-                    )),
-                !field.hasError
-                    ? Container()
-                    : Container(
-                        margin: EdgeInsets.only(top: 5.0, left: 2.0),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          field.errorText!,
-                          style: TextStyle(
-                              fontSize: 12.0, color: BsColor.textError),
-                        ),
-                      )
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        focusNode: focusNode,
+                        enabled: !widget.disabled,
+                        readOnly: widget.readOnly,
+                        autofocus: widget.autofocus,
+                        autocorrect: widget.autocorrect,
+                        maxLines: widget.maxLines,
+                        minLines: widget.minLines,
+                        controller: controller,
+                        obscureText: widget.obscureText,
+                        keyboardType: widget.keyboardType,
+                        inputFormatters: widget.inputFormatters,
+                        textAlign: widget.textAlign,
+                        textAlignVertical: widget.textAlignVertical,
+                        textCapitalization: widget.textCapitalization,
+                        textDirection: widget.textDirection,
+                        textInputAction: widget.textInputAction,
+                        onTap: widget.onTap,
+                        onEditingComplete: widget.onEditingComplete,
+                        onChanged: (value) {
+                          field.didChange(value);
+                          if (widget.onChange != null)
+                            widget.onChange!(value);
+
+                          field.setState(() {});
+                        },
+                        onFieldSubmitted: (value) {
+                          field.didChange(value);
+                          if (widget.onFieldSubmitted != null)
+                            widget.onFieldSubmitted!(value);
+
+                          field.setState(() {});
+                        },
+                        onSaved: (value) {
+                          field.didChange(value);
+                          if (widget.onSaved != null) widget.onSaved!(value);
+
+                          field.setState(() {});
+                        },
+                        toolbarOptions: widget.toolbarOptions,
+                        showCursor: widget.showCursor,
+                        cursorColor: widget.cursorColor,
+                        cursorHeight: widget.cursorHeight,
+                        cursorRadius: widget.cursorRadius,
+                        cursorWidth: widget.cursorWidth,
+                        scrollPadding: widget.scrollPadding,
+                        scrollController: widget.scrollController,
+                        scrollPhysics: widget.scrollPhysics,
+                      ),
+                    ],
+                  )
+                ),
+                !field.hasError ? Container(key: _errorKey) : Container(
+                  key: _errorKey,
+                  margin: EdgeInsets.only(top: 5.0, left: 2.0),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    field.errorText!,
+                    style: TextStyle(
+                        fontSize: 12.0, color: BsColor.textError),
+                  ),
+                )
               ],
             ),
-            widget.hintTextLabel == null
-                ? Container(width: 0)
-                : GestureDetector(
-                    onTap: () => focusNode!.requestFocus(),
-                    child: widget.hintTextLabel != null
-                        ? renderHintTextLabel(
-                            !field.hasError
-                                ? widget.style.color!
-                                : BsColor.textError,
-                            Colors.grey,
-                            !field.hasError)
-                        : Text(''),
-                  ),
+            widget.hintTextLabel == null ? Container(width: 0) : renderHintTextLabel(
+              !field.hasError ? widget.style.color! : BsColor.textError,
+              Colors.grey,
+              !field.hasError
+            ),
           ],
         );
       },
@@ -372,42 +367,58 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
 
   Widget renderHintTextLabel(Color color, Color placeholderColor, bool valid) {
     return AnimatedBuilder(
-      animation: animated!,
+      animation: animated,
       builder: (context, _) {
-        double top = isEmpty
-            ? (widget.size.marginTop! + widget.size.transitionMarginTop!) *
-                animated!.value
-            : widget.size.transitionMarginTop!;
 
-        double left = isEmpty
-            ? (widget.size.marginLeft! + widget.size.transitionMarginLeft!) *
-                animated!.value
-            : widget.size.transitionMarginLeft!;
+        double x = widget.size.marginLeft;
+        double y = widget.size.marginTop;
+        double fontSize = widget.size.fontSize;
 
-        double fontSize = isEmpty
-            ? widget.size.fontSize! -
-                (widget.size.transisionFontSize! * animated!.value).toDouble()
-            : widget.size.fontSize! - widget.size.transisionFontSize!;
+        if(!isEmpty) {
+          y = -widget.size.transitionLabelY;
+          x = -widget.size.transitionLabelX;
+          fontSize = widget.size.fontSize - widget.size.transisionFontSize;
+        }
+
+        else if(!isEmpty || focusNode!.hasFocus) {
+          y = -widget.size.transitionLabelY  * animated.value;
+          x = -widget.size.transitionLabelX;
+          fontSize = widget.size.fontSize - widget.size.transisionFontSize * animated.value;
+        }
 
         Color textColor = color;
-        if (animated!.value == 0) textColor = placeholderColor;
+        if (animated.value == 0) textColor = placeholderColor;
 
-        if ((!isEmpty && animated!.value == 1) || !valid) textColor = color;
+        if ((!isEmpty && animated.value == 1) || !valid) textColor = color;
 
-        return Transform(
-          transform: Matrix4.identity()..translate(-left, -top),
-          child: Container(
-            padding: EdgeInsets.only(left: 2.0, right: 2.0),
-            margin: EdgeInsets.only(
-                left: isEmpty ? widget.size.marginLeft! : 0,
-                top: isEmpty ? widget.size.marginTop! : 0),
-            color: widget.style.backgroundColor,
-            child: Text(widget.hintTextLabel!,
-                style: TextStyle(
-                  fontSize: fontSize,
-                  color: textColor,
+        if(_errorKey.currentContext != null) {
+          RenderBox renderBox = _errorKey.currentContext!.findRenderObject() as RenderBox;
+          if(renderBox.hasSize) {
+            y = y - renderBox.size.height;
+          }
+        }
+
+        return Positioned.fill(
+          left: x,
+          top: y,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Material(
+              child: InkWell(
+                onTap: () => focusNode!.requestFocus(),
+                child: Container(
+                  padding: EdgeInsets.only(left: 2.0, right: 2.0),
+                  color: widget.disabled ? widget.style.disabledColor : widget.style.backgroundColor,
+                  child: Text(widget.hintTextLabel!,
+                    style: TextStyle(
+                      fontSize: fontSize,
+                      color: textColor,
+                    ),
+                    overflow: TextOverflow.ellipsis
+                  ),
                 ),
-                overflow: TextOverflow.ellipsis),
+              ),
+            ),
           ),
         );
       },
