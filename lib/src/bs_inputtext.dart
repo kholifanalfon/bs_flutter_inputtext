@@ -161,6 +161,7 @@ class BsInput extends StatefulWidget {
 
 class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
   GlobalKey<State> _errorKey = GlobalKey<State>();
+  FocusNode _focusHintLabel = FocusNode();
 
   FocusNode? focusNode;
   FormFieldState? formFieldState;
@@ -182,6 +183,12 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
   void initState() {
     focusNode = widget.focusNode == null ? FocusNode() : widget.focusNode;
     focusNode!.addListener(onFocusNode);
+
+    _focusHintLabel = FocusNode();
+    _focusHintLabel.addListener(() {
+      if(_focusHintLabel.hasFocus)
+        focusNode!.requestFocus();
+    });
 
     animated = AnimationController(vsync: this, duration: duration);
     super.initState();
@@ -404,7 +411,9 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Material(
+              color: Colors.transparent,
               child: InkWell(
+                focusNode: _focusHintLabel,
                 onTap: () => focusNode!.requestFocus(),
                 child: Container(
                   padding: EdgeInsets.only(left: 2.0, right: 2.0),
