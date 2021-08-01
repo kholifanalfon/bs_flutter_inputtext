@@ -481,6 +481,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Material(
+              color: Colors.transparent,
               child: InkWell(
                 focusNode: _focusHintLabel,
                 onTap: () => focusNode!.requestFocus(),

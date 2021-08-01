@@ -41,7 +41,7 @@ class BsInputSize {
   static const BsInputSize sm = BsInputSize(
     fontSize: 10.0,
     iconSize: 16.0,
-    padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+    padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
     marginTop: 2.0,
     transitionLabelX: 5.0,
     transitionLabelY: -5.0,
