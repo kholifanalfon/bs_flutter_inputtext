@@ -47,10 +47,13 @@ class _MyAppState extends State<MyApp> {
                     Container(
                       margin: EdgeInsets.only(bottom: 20.0),
                       child: BsInput(
+                        style: BsInputStyle.outlineRounded,
                         size: BsInputSize.sm,
                         hintText: 'Small input',
                         controller: TextEditingController(),
                         validators: [BsInputValidators.required],
+                        prefixIcon: Icons.people,
+                        suffixIcon: Icons.cloud_upload_rounded,
                       ),
                     ),
                     Container(
@@ -58,17 +61,20 @@ class _MyAppState extends State<MyApp> {
                       child: BsInput(
                         size: BsInputSize.md,
                         hintTextLabel: 'Medium input',
-                        controller: TextEditingController(text: 'Testing'),
+                        controller: TextEditingController(),
                         validators: [BsInputValidators.required],
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.only(bottom: 20.0),
                       child: BsInput(
+                        style: BsInputStyle.outlineRounded,
                         size: BsInputSize.md,
                         hintText: 'Medium input',
                         controller: TextEditingController(text: 'Testing'),
                         validators: [BsInputValidators.required],
+                        prefixIcon: Icons.delete,
+                        suffixIcon: Icons.panorama_fish_eye,
                       ),
                     ),
                     Container(
@@ -83,10 +89,13 @@ class _MyAppState extends State<MyApp> {
                     Container(
                       margin: EdgeInsets.only(bottom: 20.0),
                       child: BsInput(
+                        style: BsInputStyle.outlineRounded,
                         size: BsInputSize.lg,
                         obscureText: true,
                         hintText: 'Large input',
                         controller: TextEditingController(),
+                        prefixIcon: Icons.info_outlined,
+                        suffixIcon: Icons.article_rounded,
                       ),
                     ),
                     Container(
@@ -96,6 +105,7 @@ class _MyAppState extends State<MyApp> {
                         size: BsInputSize.outlineBottomSm,
                         hintTextLabel: 'Small input',
                         controller: TextEditingController(),
+                        suffixIcon: Icons.remove_red_eye,
                       ),
                     ),
                     Container(
@@ -105,6 +115,7 @@ class _MyAppState extends State<MyApp> {
                         size: BsInputSize.outlineBottomMd,
                         hintTextLabel: 'Medium input',
                         controller: TextEditingController(),
+                        suffixIcon: Icons.close,
                       ),
                     ),
                     Container(
@@ -116,6 +127,7 @@ class _MyAppState extends State<MyApp> {
                         maxLines: 5,
                         controller: TextEditingController(),
                         validators: [BsInputValidators.required],
+                        suffixIcon: Icons.reply,
                       ),
                     ),
                     Container(

@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class BsInputStyle {
   /// Construct [BsInputStyle]
   const BsInputStyle({
-    this.color = BsColor.primary,
+    this.textColor = BsColor.primary,
+    this.iconColor = Colors.black87,
     this.backgroundColor = Colors.transparent,
     this.disabledColor = const Color(0xffe7e7e7),
     this.border,
@@ -14,7 +15,9 @@ class BsInputStyle {
   });
 
   /// define color of [BsInputText]
-  final Color? color;
+  final Color? textColor;
+
+  final Color? iconColor;
 
   /// define color of backgroundColor [BsInputText]
   final Color? backgroundColor;
@@ -41,6 +44,23 @@ class BsInputStyle {
         right: BorderSide(color: BsColor.borderColor),
       ),
       borderRadius: BorderRadius.all(Radius.circular(5.0)),
+      boxShadowFocused: [
+        BoxShadow(
+          color: BsColor.primaryShadow,
+          offset: Offset(0, 0),
+          spreadRadius: 2.5,
+        )
+      ]);
+
+  static const BsInputStyle outlineRounded = BsInputStyle(
+      backgroundColor: Colors.white,
+      border: Border(
+        top: BorderSide(color: BsColor.borderColor),
+        bottom: BorderSide(color: BsColor.borderColor),
+        left: BorderSide(color: BsColor.borderColor),
+        right: BorderSide(color: BsColor.borderColor),
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(50.0)),
       boxShadowFocused: [
         BoxShadow(
           color: BsColor.primaryShadow,
