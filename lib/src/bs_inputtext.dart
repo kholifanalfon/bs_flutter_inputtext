@@ -198,8 +198,7 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
 
     _focusHintLabel = FocusNode();
     _focusHintLabel.addListener(() {
-      if(_focusHintLabel.hasFocus)
-        focusNode!.requestFocus();
+      if (_focusHintLabel.hasFocus) focusNode!.requestFocus();
     });
 
     animated = AnimationController(vsync: this, duration: duration);
@@ -263,8 +262,6 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
         BoxBorder? border = widget.style.border;
         if (focusNode!.hasFocus) if (widget.style.boxShadowFocused.length == 0)
           border = Border(bottom: BorderSide(color: BsColor.primary));
-        else
-          border = Border.all(color: BsColor.primary);
 
         if (field.hasError) if (widget.style.boxShadowFocused.length == 0)
           border = Border(bottom: BorderSide(color: BsColor.danger));
@@ -293,132 +290,152 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                   child: InkWell(
                     onTap: () => focusNode!.requestFocus(),
                     child: Container(
-                      padding: EdgeInsets.only(
-                        left: widget.size.padding.left,
-                        right: widget.size.padding.right,
-                        top: widget.size.padding.top,
-                        bottom: widget.size.padding.bottom
-                      ),
-                      decoration: BoxDecoration(
-                        color: widget.disabled ? widget.style.disabledColor : widget.style.backgroundColor,
-                        border: border,
-                        borderRadius: widget.style.borderRadius,
-                        boxShadow: boxShadow
-                      ),
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          return Container(
-                            width: constraints.maxWidth,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                widget.prefixIcon == null ? Container() : Container(
-                                  margin: EdgeInsets.only(right: 5.0),
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      onTap: widget.onTapPrefixIcon,
-                                      child: Icon(widget.prefixIcon,
-                                        size: widget.size.iconSize,
-                                        color: field.hasError ? Colors.red : widget.style.iconColor,
-                                      ),
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(child: LayoutBuilder(
-                                  builder: (context, constraints) {
-                                    return Container(
-                                      width: constraints.maxWidth,
-                                      child: TextFormField(
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: hintText,
-                                            contentPadding: EdgeInsets.zero,
-                                            isDense: true,
-                                            hintStyle: TextStyle(
-                                              fontSize: widget.size.fontSize,
-                                              color: field.hasError ? Colors.red : null,
-                                            )
+                        padding: EdgeInsets.only(
+                            left: widget.size.padding.left,
+                            right: widget.size.padding.right,
+                            top: widget.size.padding.top,
+                            bottom: widget.size.padding.bottom),
+                        decoration: BoxDecoration(
+                            color: widget.disabled
+                                ? widget.style.disabledColor
+                                : widget.style.backgroundColor,
+                            border: border,
+                            borderRadius: widget.style.borderRadius,
+                            boxShadow: boxShadow),
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            return Container(
+                              width: constraints.maxWidth,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  widget.prefixIcon == null
+                                      ? Container()
+                                      : Container(
+                                          margin: EdgeInsets.only(right: 5.0),
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            child: InkWell(
+                                              onTap: widget.onTapPrefixIcon,
+                                              child: Icon(
+                                                widget.prefixIcon,
+                                                size: widget.size.iconSize,
+                                                color: field.hasError
+                                                    ? Colors.red
+                                                    : widget.style.iconColor,
+                                              ),
+                                              splashColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                            ),
+                                          ),
                                         ),
-                                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                                        focusNode: focusNode,
-                                        enabled: !widget.disabled,
-                                        readOnly: widget.readOnly,
-                                        autofocus: widget.autofocus,
-                                        autocorrect: widget.autocorrect,
-                                        maxLines: widget.maxLines,
-                                        minLines: widget.minLines,
-                                        controller: controller,
-                                        obscureText: widget.obscureText,
-                                        keyboardType: widget.keyboardType,
-                                        inputFormatters: widget.inputFormatters,
-                                        textAlign: widget.textAlign,
-                                        textAlignVertical: widget.textAlignVertical,
-                                        textCapitalization: widget.textCapitalization,
-                                        textDirection: widget.textDirection,
-                                        textInputAction: widget.textInputAction,
-                                        onTap: widget.onTap,
-                                        onEditingComplete: widget.onEditingComplete,
-                                        onChanged: (value) {
-                                          field.didChange(value);
-                                          if (widget.onChange != null)
-                                            widget.onChange!(value);
+                                  Expanded(child: LayoutBuilder(
+                                    builder: (context, constraints) {
+                                      return Container(
+                                        width: constraints.maxWidth,
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: hintText,
+                                              contentPadding: EdgeInsets.zero,
+                                              isDense: true,
+                                              hintStyle: TextStyle(
+                                                fontSize: widget.size.fontSize,
+                                                color: field.hasError
+                                                    ? Colors.red
+                                                    : null,
+                                              )),
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          focusNode: focusNode,
+                                          enabled: !widget.disabled,
+                                          readOnly: widget.readOnly,
+                                          autofocus: widget.autofocus,
+                                          autocorrect: widget.autocorrect,
+                                          maxLines: widget.maxLines,
+                                          minLines: widget.minLines,
+                                          controller: controller,
+                                          obscureText: widget.obscureText,
+                                          keyboardType: widget.keyboardType,
+                                          inputFormatters:
+                                              widget.inputFormatters,
+                                          textAlign: widget.textAlign,
+                                          textAlignVertical:
+                                              widget.textAlignVertical,
+                                          textCapitalization:
+                                              widget.textCapitalization,
+                                          textDirection: widget.textDirection,
+                                          textInputAction:
+                                              widget.textInputAction,
+                                          onTap: widget.onTap,
+                                          onEditingComplete:
+                                              widget.onEditingComplete,
+                                          onChanged: (value) {
+                                            field.didChange(value);
+                                            if (widget.onChange != null)
+                                              widget.onChange!(value);
 
-                                          field.setState(() {});
-                                        },
-                                        onFieldSubmitted: (value) {
-                                          field.didChange(value);
-                                          if (widget.onFieldSubmitted != null)
-                                            widget.onFieldSubmitted!(value);
+                                            field.setState(() {});
+                                          },
+                                          onFieldSubmitted: (value) {
+                                            field.didChange(value);
+                                            if (widget.onFieldSubmitted != null)
+                                              widget.onFieldSubmitted!(value);
 
-                                          field.setState(() {});
-                                        },
-                                        onSaved: (value) {
-                                          field.didChange(value);
-                                          if (widget.onSaved != null) widget.onSaved!(value);
+                                            field.setState(() {});
+                                          },
+                                          onSaved: (value) {
+                                            field.didChange(value);
+                                            if (widget.onSaved != null)
+                                              widget.onSaved!(value);
 
-                                          field.setState(() {});
-                                        },
-                                        toolbarOptions: widget.toolbarOptions,
-                                        showCursor: widget.showCursor,
-                                        cursorColor: widget.cursorColor,
-                                        cursorHeight: widget.cursorHeight,
-                                        cursorRadius: widget.cursorRadius,
-                                        cursorWidth: widget.cursorWidth,
-                                        scrollPadding: widget.scrollPadding,
-                                        scrollController: widget.scrollController,
-                                        scrollPhysics: widget.scrollPhysics,
-                                      ),
-                                    );
-                                  },
-                                )),
-                                widget.suffixIcon == null ? Container() : Container(
-                                  margin: EdgeInsets.only(left: 5.0),
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      onTap: widget.onTapSuffixIcon,
-                                      child: Icon(widget.suffixIcon,
-                                        size: widget.size.iconSize,
-                                        color: field.hasError ? Colors.red : widget.style.iconColor,
-                                      ),
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      )
-                    ),
+                                            field.setState(() {});
+                                          },
+                                          toolbarOptions: widget.toolbarOptions,
+                                          showCursor: widget.showCursor,
+                                          cursorColor: widget.cursorColor,
+                                          cursorHeight: widget.cursorHeight,
+                                          cursorRadius: widget.cursorRadius,
+                                          cursorWidth: widget.cursorWidth,
+                                          scrollPadding: widget.scrollPadding,
+                                          scrollController:
+                                              widget.scrollController,
+                                          scrollPhysics: widget.scrollPhysics,
+                                        ),
+                                      );
+                                    },
+                                  )),
+                                  widget.suffixIcon == null
+                                      ? Container()
+                                      : Container(
+                                          margin: EdgeInsets.only(left: 5.0),
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            child: InkWell(
+                                              onTap: widget.onTapSuffixIcon,
+                                              child: Icon(
+                                                widget.suffixIcon,
+                                                size: widget.size.iconSize,
+                                                color: field.hasError
+                                                    ? Colors.red
+                                                    : widget.style.iconColor,
+                                              ),
+                                              splashColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                            ),
+                                          ),
+                                        ),
+                                ],
+                              ),
+                            );
+                          },
+                        )),
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -426,23 +443,28 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                     mouseCursor: SystemMouseCursors.text,
                   ),
                 ),
-                !field.hasError ? Container(key: _errorKey) : Container(
-                  key: _errorKey,
-                  margin: EdgeInsets.only(top: 5.0, left: 2.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    field.errorText!,
-                    style: TextStyle(
-                        fontSize: 12.0, color: BsColor.textError),
-                  ),
-                )
+                !field.hasError
+                    ? Container(key: _errorKey)
+                    : Container(
+                        key: _errorKey,
+                        margin: EdgeInsets.only(top: 5.0, left: 2.0),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          field.errorText!,
+                          style: TextStyle(
+                              fontSize: 12.0, color: BsColor.textError),
+                        ),
+                      )
               ],
             ),
-            widget.hintTextLabel == null ? Container(width: 0) : renderHintTextLabel(
-              !field.hasError ? widget.style.textColor! : BsColor.textError,
-              Colors.grey,
-              !field.hasError
-            ),
+            widget.hintTextLabel == null
+                ? Container(width: 0)
+                : renderHintTextLabel(
+                    !field.hasError
+                        ? widget.style.textColor!
+                        : BsColor.textError,
+                    Colors.grey,
+                    !field.hasError),
           ],
         );
       },
@@ -453,21 +475,19 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
       animation: animated,
       builder: (context, _) {
-
         double x = widget.size.marginLeft + widget.size.padding.left;
         double y = widget.size.marginTop + widget.size.padding.top;
         double fontSize = widget.size.fontSize;
 
-        if(!isEmpty) {
+        if (!isEmpty) {
           y = widget.size.transitionLabelY;
           x = widget.size.transitionLabelX;
           fontSize = widget.size.fontSize - widget.size.transisionFontSize;
-        }
-
-        else if(!isEmpty || focusNode!.hasFocus) {
-          y = widget.size.transitionLabelY  * animated.value;
+        } else if (!isEmpty || focusNode!.hasFocus) {
+          y = widget.size.transitionLabelY * animated.value;
           x = widget.size.transitionLabelX;
-          fontSize = widget.size.fontSize - widget.size.transisionFontSize * animated.value;
+          fontSize = widget.size.fontSize -
+              widget.size.transisionFontSize * animated.value;
         }
 
         Color textColor = color;
@@ -487,14 +507,15 @@ class _BsInputState extends State<BsInput> with SingleTickerProviderStateMixin {
                 onTap: () => focusNode!.requestFocus(),
                 child: Container(
                   padding: EdgeInsets.only(left: 2.0, right: 2.0),
-                  color: widget.disabled ? widget.style.disabledColor : widget.style.backgroundColor,
+                  color: widget.disabled
+                      ? widget.style.disabledColor
+                      : widget.style.backgroundColor,
                   child: Text(widget.hintTextLabel!,
-                    style: TextStyle(
-                      fontSize: fontSize,
-                      color: textColor,
-                    ),
-                    overflow: TextOverflow.ellipsis
-                  ),
+                      style: TextStyle(
+                        fontSize: fontSize,
+                        color: textColor,
+                      ),
+                      overflow: TextOverflow.ellipsis),
                 ),
                 hoverColor: Colors.transparent,
                 focusColor: Colors.transparent,
